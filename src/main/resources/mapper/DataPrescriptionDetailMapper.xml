@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyb.granula.mapper.DataPrescriptionDetailMapper">
+
+    <update id="createTable">
+        CREATE TABLE  DATA_PRESCRIPTION_DETAIL
+        (
+        AUTOID       INTEGER
+        PRIMARY KEY COMMENT '自动编号',
+        ID           VARCHAR(64)            NULL
+        COMMENT '处方号',
+        NO           INT                    NULL
+        COMMENT '颗粒序号',
+        GRANULE_ID   VARCHAR(64) DEFAULT '' NULL
+        COMMENT '配方颗粒ID',
+        GRANULE_NAME VARCHAR(32) DEFAULT '' NULL
+        COMMENT '颗粒名称',
+        DOSE_HERB    DECIMAL(10,2) DEFAULT '0'        NULL
+        COMMENT '饮片剂量',
+        EQUIVALENT   INT DEFAULT '0'        NULL
+        COMMENT '当量',
+        DOSE         INT DEFAULT '0'        NULL
+        COMMENT '颗粒计量',
+        PRICE        DECIMAL(10, 2)         NULL
+        COMMENT '颗粒价格'
+        )
+        COMMENT '电子处方明细数据表'
+
+    </update>
+
+    <insert id="insert" parameterType="com.lyb.granula.entity.DataPrescriptionDetail">
+        insert into DATA_PRESCRIPTION_DETAIL ( ID, "NO",
+        GRANULE_ID, GRANULE_NAME, DOSE_HERB,
+        EQUIVALENT, DOSE, PRICE)
+        values
+        (#{id}, #{no},
+        #{granuleId}, #{granuleName, javaType=string, jdbcType=BLOB, typeHandler=com.lyb.granula.handler.StringTypeHandler},
+        #{doseHerb},
+        #{equivalent}, #{dose}, #{price})
+    </insert>
+
+    <insert id="batchSave" parameterType="java.util.List">
+        insert into DATA_PRESCRIPTION_DETAIL ( ID, NO,
+        GRANULE_ID, GRANULE_NAME, DOSE_HERB,
+        EQUIVALENT, DOSE, PRICE
+        )
+        values
+        <foreach collection="details" item="item" index="index" separator=",">
+            <trim prefix=" (" suffix=")" suffixOverrides=",">
+                #{item.id}, #{item.no},
+                #{item.granuleId},
+                #{item.granuleName},
+                #{item.doseHerb},
+                #{item.equivalent}, #{item.dose}, #{item.price}
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

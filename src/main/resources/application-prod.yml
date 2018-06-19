@@ -1,0 +1,10 @@
+spring:
+  datasource:
+      driver-class-name: org.firebirdsql.jdbc.FBDriver
+      url: jdbc:firebirdsql:localhost/3050:C:/database/MDDB.FDB?charset=NONE
+      username: SYSDBA
+      password: masterkey
+
+url:
+   prescription-url: http://ims.zanchina.com/lc/granula/sync
+

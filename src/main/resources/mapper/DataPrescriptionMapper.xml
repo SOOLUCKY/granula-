@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyb.granula.mapper.DataPrescriptionMapper">
+
+    <update id="createTable">
+        CREATE TABLE DATA_PRESCRIPTION
+        (
+
+        ID                VARCHAR(64)            NULL
+        COMMENT '处方号',
+        REGISTER_ID       VARCHAR(64)            NULL
+        COMMENT '挂号单 ID',
+        NAME           VARCHAR(32) DEFAULT '' NULL
+        COMMENT '患者姓名',
+        SEX               CHAR(2) DEFAULT ''     NULL
+        COMMENT '患者性别',
+        AGE               INT DEFAULT '0'        NULL
+        COMMENT '患者年龄',
+        TELE              VARCHAR(32) DEFAULT '' NULL
+        COMMENT '患者联系电话',
+        EMAIL             VARCHAR(32)            NULL
+        COMMENT '患者电邮',
+        DEPARTMENT_NAME   VARCHAR(64)            NULL
+        COMMENT '科室名称',
+        DOCTOR_NAME       VARCHAR(32) DEFAULT '' NULL
+        COMMENT '医生名称',
+        PRESCRIPTION_NAME VARCHAR(64)            NULL
+        COMMENT '协定处方名称',
+        PRESCRIBE_TIME    DATE               NULL
+        COMMENT '处方开具时间',
+        CREATOR_NAME      VARCHAR(32)            NULL
+        COMMENT '录入员姓名',
+        CREATION_TIME     DATE               NULL
+        COMMENT '录入时间',
+        VALUE_SN          VARCHAR(64)            NULL
+        COMMENT '划价单号',
+        VALUER_NAME       VARCHAR(32)            NULL
+        COMMENT '划价员姓名',
+        VALUATION_TIME    DATE               NULL
+        COMMENT '划价时间',
+        PRICE             DECIMAL(10, 2)         NULL
+        COMMENT '处方单剂价格',
+        QUANTITY          INT DEFAULT '0'        NULL
+        COMMENT '剂数（袋数）',
+        QUANTITY_DAY      INT DEFAULT '0'        NULL
+        COMMENT '剂数（付数）',
+        PRICE_TOTAL       DECIMAL(10, 2)         NULL
+        COMMENT '处方总价',
+        PAYMENT_TYPE      VARCHAR(16)            NULL
+        COMMENT '缴费类型',
+        PAYMENT_STATUS    CHAR(10) DEFAULT ''    NULL
+        COMMENT '缴费状态',
+        DATA_SOURCE       CHAR(5) DEFAULT 'HIS'  NULL
+        COMMENT '处方来源',
+        DEVICE_ID         VARCHAR(32)            NULL
+        COMMENT '调剂设备',
+        PROCESS_STATUS    CHAR(5) DEFAULT 'NEW'  NULL
+        COMMENT '调剂状态',
+        DESCRIPTION       VARCHAR(128)           NULL
+        COMMENT '备注说明'
+        )
+        COMMENT '处方表'
+
+    </update>
+
+    <insert id="insert" parameterType="com.lyb.granula.entity.DataPrescription">
+        insert into DATA_PRESCRIPTION (AUTOID, ID, REGISTER_ID,
+        NAME, SEX, AGE, TELE,
+        EMAIL, DEPARTMENT_NAME, DOCTOR_NAME,
+        PRESCRIPTION_NAME, PRESCRIBE_TIME, CREATOR_NAME,
+        CREATION_TIME, VALUE_SN, VALUER_NAME,
+        VALUATION_TIME, PRICE, QUANTITY,
+        QUANTITY_DAY, PRICE_TOTAL, PAYMENT_TYPE,
+        PAYMENT_STATUS, DATA_SOURCE, DEVICE_ID,
+        PROCESS_STATUS, DESCRIPTION)
+        values (#{autoid}, #{id}, #{registerId},
+        #{name, javaType=string, jdbcType=BLOB, typeHandler=com.lyb.granula.handler.StringTypeHandler}, #{sex, javaType=string, jdbcType=BLOB, typeHandler=com.lyb.granula.handler.StringTypeHandler}, #{age}, #{tele},
+        #{email}, #{departmentName}, #{doctorName, javaType=string, jdbcType=BLOB, typeHandler=com.lyb.granula.handler.StringTypeHandler},
+        #{prescriptionName}, #{prescribeTime}, #{creatorName},
+        #{creationTime}, #{valueSn}, #{valuerName},
+        #{valuationTime}, #{price}, #{quantity},
+        #{quantityDay}, #{priceTotal}, #{paymentType},
+        #{paymentStatus}, #{dataSource}, #{deviceId},
+        #{processStatus}, #{description})
+    </insert>
+</mapper>
